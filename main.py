@@ -1,25 +1,24 @@
-# Importing Libraries
+# imports
 import cv2
 import mediapipe as mp
 
-# Used to convert protobuf message to a dictionary.
-from google.protobuf.json_format import MessageToDict
+from google.protobuf.json_format import MessageToDict  # to convert message to dict keys
 
-# Initializing the Model
-mpHands = mp.solutions.hands
-hands = mpHands.Hands(
+# model
+hand_detection = mp.solutions.hands
+hands = hand_detection.Hands(
     static_image_mode=False,
     model_complexity=1,
     min_detection_confidence=0.75,
     min_tracking_confidence=0.75,
     max_num_hands=2)
 
-# Start capturing video from webcam
-cap = cv2.VideoCapture(0)
+# start live video capture from camera
+live_video_capture = cv2.VideoCapture(0)
 
 while True:
-    # Read video frame by frame
-    success, img = cap.read()
+    # read video frame by frame; returns tuple
+    success, img = live_video_capture.read()
 
     # Flip the image(frame)
     img = cv2.flip(img, 1)
